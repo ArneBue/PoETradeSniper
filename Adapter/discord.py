@@ -12,9 +12,8 @@ def send(message, webhook):
           		'cache-control': "no-cache",
         }
 
-	conn.request("POST", webhook, payload, headers)
+	conn.request("POST", webhook, payload.encode("utf-8"), headers)
 
 	res = conn.getresponse()
 	data = res.read()
 
-	print(data.decode("utf-8"))
