@@ -11,6 +11,7 @@ def normalizeItem(item, stashName):
 			   'Links': maxLinks(item.get('sockets')),
 			   'stashName': stashName,
                'identified': item.get('identified'),
+               'corrupted': item.get('corrupted')
 			   'mods': normalizeItemMods(item.get('enchantMods'), 
 			   							 item.get('implicitMods'), 
 										 item.get('explicitMods'), 

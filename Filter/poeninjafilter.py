@@ -8,6 +8,15 @@ class PoENinjaFilter:
         self.poeninja = poeninja
 
     def checkCondition(self, item):
+        if 'piece of' in item.get('name'):
+            return False
+
+        if 'Tabula' in item.get('name'):
+            return true
+
+        if item.get('corrupted') is not None and item.get('corrupted') == True:
+            return False
+
         if item.get('itemType') == 3 or item.get('itemType') == 6:
             if item.get('price') != 'unpriced' and item.get('price') != 'not priced in chaos' and item.get('identified'):
                 return True
