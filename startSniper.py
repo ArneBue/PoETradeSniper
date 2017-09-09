@@ -26,7 +26,7 @@ def main():
 		trade.request()
 		end_time = time.time() - start_time
 
-		logging.info("Download took: " + str(end_time))
+		logging.info("Everything took: " + str(end_time))
 		#if PoENinjaAdapter.requiresUpdate():
 			#PoENinjaAdapter.updatePrices()
 		if((end_time ) < 1.0):

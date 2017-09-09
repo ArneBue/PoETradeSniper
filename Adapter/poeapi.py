@@ -39,8 +39,11 @@ class PoEAPI:
 
     def doRequest(self, tradeURL):
         if config.get('Config', 'loadErrorStashTab') == 'False':
+            startDownload = time.time()
             r = requests.get(tradeURL)
             data = r.json()
+            end = time.time() - startDownload
+            logger.info("Download took: " + str(end))
         else:
             with open('public-stash-tabs.json') as data_file:
                 logger.warn('Error mode')
