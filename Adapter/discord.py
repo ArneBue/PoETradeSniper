@@ -1,3 +1,5 @@
+import http
+
 def send(message, webhook):
 
 	conn = http.client.HTTPSConnection("discordapp.com")
