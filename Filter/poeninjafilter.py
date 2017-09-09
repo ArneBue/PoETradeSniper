@@ -16,7 +16,7 @@ class PoENinjaFilter:
         if item.get('price') == 0:
             return False
 
-        if 'Piece of' in item.get('name'):
+        if 'Piece of' in item.get('name') or 'Ventor\'s' in item.get('name'):
             return False
 
         if 'Tabula' in item.get('name') and item.get('price') != 'unpriced' and item.get('price') != 'not priced in chaos':
@@ -62,7 +62,7 @@ class PoENinjaFilter:
     def evaluate(self, priceNinja, priceItem):
         perc_decrease = ((priceNinja - priceItem) / priceNinja) * 100
 
-        if perc_decrease >= 35 and priceNinja - priceItem > 2:
+        if perc_decrease >= 40 and priceNinja - priceItem > 2:
             return True
         
         return False
