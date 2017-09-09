@@ -1,0 +1,20 @@
+[Config]
+league: Harbinger
+loadErrorStashTab: False
+
+[URL]
+TradeApi: http://www.pathofexile.com/api/public-stash-tabs?id=
+PoENinjaAPI: http://cdn.poe.ninja/api/Data/
+GetStats: GetStats
+
+[PoeNinjaApi]
+UniqJewel: GetUniqueJewelOverview
+UniqArmour: GetUniqueArmourOverview
+UniqWeapon: GetUniqueWeaponOverview
+UniqMaps: GetUniqueMapOverview
+UniqFlask: GetUniqueFlaskOverview
+UniqAccessory: GetUniqueAccessoryOverview
+DivCard: GetDivinationCardsOverview
+
+[Discord]
+Webhook: WebHook URL
