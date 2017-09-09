@@ -33,12 +33,11 @@ class PoENinjaFilter:
                
                 if self.poeninja.prices[itemType][item.get('Links')].get(item.get('name', None)) is not None:
                     found = True
-                    price = self.poeninja.prices[itemType].get(
-                        item.get('Links').get(item.get('name', None)))
+                    price = self.poeninja.prices[itemType][item.get('Links')].get(item.get('name', None))
+                    
                     if self.evaluate(price, item.get('price')):
                         return price
                     continue
-        sys.exit(0)
         if not found:
             logger.warning("Could not find: " + str(item))
 
@@ -47,7 +46,7 @@ class PoENinjaFilter:
     def evaluate(self, priceNinja, priceItem):
         perc_decrease = ((priceNinja - priceItem) / priceNinja) * 100
 
-        if perc_decrease >= 20:
+        if perc_decrease >= 20 and priceNinja - priceItem > 2:
             return True
 
     def sendMessage(self, item, price):
