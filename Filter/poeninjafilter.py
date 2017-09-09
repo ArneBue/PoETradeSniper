@@ -62,7 +62,7 @@ class PoENinjaFilter:
     def evaluate(self, priceNinja, priceItem):
         perc_decrease = ((priceNinja - priceItem) / priceNinja) * 100
 
-        if perc_decrease >= 20 and priceNinja - priceItem > 2:
+        if perc_decrease >= 35 and priceNinja - priceItem > 2:
             return True
         
         return False
