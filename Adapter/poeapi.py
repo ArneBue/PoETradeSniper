@@ -42,11 +42,11 @@ class PoEAPI:
             items = stash.get('items')
 
             for itemIterator in items:
-                if itemIterator.get('league') == self.config.get('Config', 'league') or True:
-                    item = itemhelper.normalizeItem(itemIterator, stashName)
-                    
+                if itemIterator.get('league') == self.config.get('Config', 'league'):
+                    item = itemhelper.normalizeItem(itemIterator, stashName, accountName, lastCharacterName)
+                    self.filter(item)                    
 
-                self.filter(item)
+                
 
     def filter(self, item):
         for filter in self.filters:

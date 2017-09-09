@@ -2,9 +2,12 @@ import sys
 import re
 import ast
 
-def normalizeItem(item, stashName):
+def normalizeItem(item, stashName, accountName, lastCharacterName):
 	newItem = {'name': normalizeItemName(item.get('name'), item.get('typeLine')),
+			   'accountName': accountName,
+			   'lastCharacterName': lastCharacterName,
 			   'itemType': item.get('frameType'),
+			   'note': item.get('note', ''),
 			   'price': normalizeItemPrice(item.get('note', ""), stashName), 
 			   'xLoc': item.get('x'),
 			   'yLoc': item.get('y'),

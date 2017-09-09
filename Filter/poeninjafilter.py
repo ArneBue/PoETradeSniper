@@ -1,6 +1,8 @@
 import logging
 import sys
 
+from Helper import message
+
 logger = logging.getLogger(__name__)
 
 class PoENinjaFilter:
@@ -8,10 +10,10 @@ class PoENinjaFilter:
         self.poeninja = poeninja
 
     def checkCondition(self, item):
-        if 'piece of' in item.get('name'):
+        if 'Piece of' in item.get('name'):
             return False
 
-        if 'Tabula' in item.get('name'):
+        if 'Tabula' in item.get('name') and item.get('price') != 'unpriced' and item.get('price') != 'not priced in chaos':
             return True
 
         if item.get('corrupted') is not None and item.get('corrupted') == True:
@@ -57,9 +59,12 @@ class PoENinjaFilter:
 
         if perc_decrease >= 20 and priceNinja - priceItem > 2:
             return True
+        
+        return False
 
     def sendMessage(self, item, price):
-        print("item is: " + str(item) + " ninja: " + str(price))
+        msg = message.createMessage(item, price)
+        print(msg)
 
         
 
