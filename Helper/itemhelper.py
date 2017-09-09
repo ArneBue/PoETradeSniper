@@ -57,12 +57,14 @@ def normalizeItemPrice(note, stashName):
 
 	if unit != "chaos":
 		return convertToChaos(price, unit)
+	try:
+		if '.' in priceFinal:
+			priceFinal = float(priceFinal)
+		else:
+			priceFinal = int(priceFinal)
+	except:
+		return 'unpriced'
 	
-	if '.' in priceFinal:
-		priceFinal = float(priceFinal)
-	else:
-		priceFinal = int(priceFinal)
-
 	return priceFinal
 
 
