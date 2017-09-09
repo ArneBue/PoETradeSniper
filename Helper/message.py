@@ -6,6 +6,8 @@ def createMessage(item, price):
 	if len(modsList) > 1:
 		msg += "\n" + modsList
 
+	return msg
+
 
 
 def createModList(mods):
