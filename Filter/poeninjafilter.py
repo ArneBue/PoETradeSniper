@@ -2,6 +2,7 @@ import logging
 import sys
 
 from Helper import message
+from Adapter import discord 
 
 logger = logging.getLogger(__name__)
 
@@ -64,8 +65,7 @@ class PoENinjaFilter:
 
     def sendMessage(self, item, price):
         msg = message.createMessage(item, price)
-        print(msg)
-
+        discord.send(msg, "https://discordapp.com/api/webhooks/347402594945335297/d6SCkOWWSOfyd3L3SJya6h_5qRAUX8KbWWHR-yb61iY8_o806aUybgcu3DzNP783mATx")
         
 
 #{'name': 'Dusk Ichor', 'itemType': 2, 'price': 'unpriced', 'xLoc': 3, 'yLoc': 1, 'Links': 0, 'mods': [
