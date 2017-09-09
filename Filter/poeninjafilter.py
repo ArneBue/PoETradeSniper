@@ -12,7 +12,7 @@ class PoENinjaFilter:
             return False
 
         if 'Tabula' in item.get('name'):
-            return true
+            return True
 
         if item.get('corrupted') is not None and item.get('corrupted') == True:
             return False
