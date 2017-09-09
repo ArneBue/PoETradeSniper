@@ -15,6 +15,7 @@ def normalizeItem(item, stashName, accountName, lastCharacterName):
 			   'stashName': stashName,
                'identified': item.get('identified'),
                'corrupted': item.get('corrupted'),
+			   'id': item.get('id'),
 			   'mods': normalizeItemMods(item.get('enchantMods'), 
 			   							 item.get('implicitMods'), 
 										 item.get('explicitMods'), 

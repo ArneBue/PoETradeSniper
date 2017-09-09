@@ -4,6 +4,8 @@ import sys
 from Helper import message
 from Adapter import discord 
 
+from config import config
+
 logger = logging.getLogger(__name__)
 
 class PoENinjaFilter:
@@ -11,6 +13,9 @@ class PoENinjaFilter:
         self.poeninja = poeninja
 
     def checkCondition(self, item):
+        if item.get('price') == 0:
+            return False
+
         if 'Piece of' in item.get('name'):
             return False
 
@@ -37,12 +42,10 @@ class PoENinjaFilter:
                 return divcardprice
             
         else:
-
             for itemType in self.poeninja.prices:
-
                 if itemType == 'divcard':
                     continue
-               
+        
                 if self.poeninja.prices[itemType][item.get('Links')].get(item.get('name', None)) is not None:
                     found = True
                     price = self.poeninja.prices[itemType][item.get('Links')].get(item.get('name', None))
@@ -50,6 +53,7 @@ class PoENinjaFilter:
                     if self.evaluate(price, item.get('price')):
                         return price
                     continue
+
         if not found:
             logger.warning("Could not find: " + str(item))
 
@@ -65,7 +69,7 @@ class PoENinjaFilter:
 
     def sendMessage(self, item, price):
         msg = message.createMessage(item, price)
-        discord.send(msg, "https://discordapp.com/api/webhooks/347402594945335297/d6SCkOWWSOfyd3L3SJya6h_5qRAUX8KbWWHR-yb61iY8_o806aUybgcu3DzNP783mATx")
+        discord.send(msg, config.get('Discord', 'Webhook'))
         
 
 #{'name': 'Dusk Ichor', 'itemType': 2, 'price': 'unpriced', 'xLoc': 3, 'yLoc': 1, 'Links': 0, 'mods': [

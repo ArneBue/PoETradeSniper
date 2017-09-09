@@ -1,60 +1,64 @@
-import requests
 import logging
-import time
 import sys
+import time
+
+import requests
+
+from config import config
 
 logger = logging.getLogger(__name__)
 
 class PoENinja:
-    prices = {}
+	prices = {}
 
-    latestupdate = 0
+	latestupdate = 0
 
-    def __init__(self, config):
-        self.config = config
-        self.updatePrices()
-        logger.info("Item Price List created")
+	def __init__(self):
+		self.updatePrices()
 
-    def updatePrices(self):
-        for (itemType, url) in self.config.items("PoeNinjaApi"):
-            self.prices[itemType] = self.getPrices(url)
+	def updatePrices(self):
+		logging.info("Loading PoE Ninja data")
+		
+		for (itemType, url) in config.items("PoeNinjaApi"):
+			self.prices[itemType] = self.getPrices(url)
 
-        latestupdate = time.time()
+		latestupdate = time.time()
+		logger.info("Item Price List created")
 
-    def getPrices(self, url):
-        ninjaUrl = self.config.get("URL", "PoENinjaAPI") + url
+	def getPrices(self, url):
+		ninjaUrl = config.get("URL", "PoENinjaAPI") + url
 
-        r = requests.get(ninjaUrl, {
-            'league': self.config.get("Config", "league"),
-            'date': time.strftime("%Y-%m-%d")
-        })
+		r = requests.get(ninjaUrl, {
+			'league': config.get("Config", "league"),
+			'date': time.strftime("%Y-%m-%d")
+		})
 
-        return self.parseItem(r.json().get("lines"))
+		return self.parseItem(r.json().get("lines"))
 
-    def parseItem(self, itemJSON):
-        returnDic = {'0': {}, '5': {}, '6': {} }
+	def parseItem(self, itemJSON):
+		returnDic = {'0': {}, '5': {}, '6': {} }
 
-        for item in itemJSON:
+		for item in itemJSON:
 
-            returnDic[str(item.get("links", '0'))].update({
-                item.get("name"): item.get("chaosValue")
-            })
+			returnDic[str(item.get("links", '0'))].update({
+				item.get("name"): item.get("chaosValue")
+			})
 
-        return returnDic
+		return returnDic
 
-    def requiresUpdate(self):
-        if(self.latestupdate + (60 * 30) < time.time()):
-            return True
-        else:
-            return False
+	def requiresUpdate(self):
+		if(self.latestupdate + (60 * 30) < time.time()):
+			return True
+		else:
+			return False
 
-    def getChangeID(self):
-        ninjaUrl = self.config.get("URL", "PoENinjaAPI") + self.config.get("URL", "GetStats")
+	def getChangeID(self):
+		ninjaUrl = config.get("URL", "PoENinjaAPI") + config.get("URL", "GetStats")
 
-        logger.debug(ninjaUrl)
+		logger.debug(ninjaUrl)
 
-        r = requests.get(ninjaUrl)
-        changeID = r.json().get('nextChangeId')
+		r = requests.get(ninjaUrl)
+		changeID = r.json().get('nextChangeId')
 
-        logger.info("Starting at: " + changeID)
-        return changeID
+		logger.info("Starting at: " + changeID)
+		return changeID

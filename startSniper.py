@@ -1,7 +1,7 @@
 import logging
 import sys
 import time
-from configparser import ConfigParser
+from config import config
 
 from Adapter.poeninja import PoENinja
 from Adapter.poeapi import PoEAPI
@@ -12,15 +12,13 @@ def main():
 	logging.basicConfig(stream=sys.stderr, level=logging.INFO)
 
 	logging.info("Starting Sniper")
-	logging.info("Parsing Configuration File")
-	config = ConfigParser()
-	config.read('config.ini')
 
-	PoENinjaAdapter = PoENinja(config)
+
+	PoENinjaAdapter = PoENinja()
 
 	start = PoENinjaAdapter.getChangeID()
 
-	trade = PoEAPI(config, start)
+	trade = PoEAPI(start)
 
 	trade.addFilter(PoENinjaFilter(PoENinjaAdapter))
 	while True:
