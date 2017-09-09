@@ -82,7 +82,7 @@ def normalizeItemMods(enchantMods, implicitMods, explicitMods, craftedMods, corr
 		mods.extend(craftedMods)
 
 	if corrupted is not None and corrupted == True:
-		mods.extend("Corrupted")
+		mods.extend({"Corrupted"})
 
 	return mods
 

@@ -16,6 +16,7 @@ class PoENinjaFilter:
 
     def isWorthBuying(self, item):
         found = False
+
         if item.get('itemType') == 6:
             divcardprice = self.poeninja.prices['divcard']['0'][item.get('name')]
             found = True
@@ -29,15 +30,15 @@ class PoENinjaFilter:
 
                 if itemType == 'divcard':
                     continue
-                
-                if self.poeninja.prices[itemType][item.get('links', '0')].get(item.get('name', None)) is not None:
+               
+                if self.poeninja.prices[itemType][item.get('Links')].get(item.get('name', None)) is not None:
                     found = True
                     price = self.poeninja.prices[itemType].get(
-                        item.get('links', '0')).get(item.get('name', None))
+                        item.get('Links').get(item.get('name', None)))
                     if self.evaluate(price, item.get('price')):
                         return price
                     continue
-
+        sys.exit(0)
         if not found:
             logger.warning("Could not find: " + str(item))
 

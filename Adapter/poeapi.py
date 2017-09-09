@@ -21,7 +21,7 @@ class PoEAPI:
 
         logger.debug(tradeURL)
 
-        if True:
+        if False:
             r = requests.get(tradeURL)
             data = r.json()
         else:
