@@ -6,6 +6,7 @@ from config import config
 from Adapter.poeninja import PoENinja
 from Adapter.poeapi import PoEAPI
 from Filter.poeninjafilter import PoENinjaFilter
+from Filter.testfilter import TestFilter
 
 
 def main():
@@ -21,6 +22,7 @@ def main():
 	trade = PoEAPI(start)
 
 	trade.addFilter(PoENinjaFilter(PoENinjaAdapter))
+	trade.addFilter(TestFilter())
 	while True:
 		start_time = time.time()
 		trade.request()
