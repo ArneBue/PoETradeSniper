@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 
 class TestFilter:
 	def checkCondition(self, item):
-		return item.get('name') == 'Belly of the Beast' and item.get('price') is not 'unpriced' and item.get('price') is not 'not priced in chaos'
+		return (item.get('name') == 'Belly of the Beast' and item.get('price') is not 'unpriced' and item.get('price') is not 'not priced in chaos')
 
 	def isWorthBuying(self, item):
 		if item.get('name') == 'Belly of the Beast' and int(item.get('price')) > 5000:
