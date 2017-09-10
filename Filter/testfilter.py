@@ -10,13 +10,13 @@ logger = logging.getLogger(__name__)
 
 class TestFilter:
 	def checkCondition(self, item):
-		if 'Belly' in item.get('name') and 'Yoshi' in item.get('lastCharacterName'):
+		if 'Yoshi' in item.get('lastCharacterName'):
 			return True
 		else:
 			return False
 
 	def isWorthBuying(self, item):
-		if 'Belly' in item.get('name') and 'Yoshi' in item.get('lastCharacterName'):
+		if 'Yoshi' in item.get('lastCharacterName'):
 			return True
 		else:
 			return False
