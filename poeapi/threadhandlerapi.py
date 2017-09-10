@@ -15,7 +15,7 @@ class ThreadHandlerAPI:
         
         changeIDs = self.getChangeIDs(changeID)
 
-        for i in range(0, 5):
+        for i in range(0, 1):
             api = PoEAPI(i, changeIDs[i])
 
             api.filters = filters
@@ -47,7 +47,7 @@ class ThreadHandlerAPI:
         ids = changeID.split('-')
 
         return [
-            str(int(ids[0]) + 2000) + "-999999999999-999999999999-999999999999-999999999999",
+            str(int(ids[0]) + 000) + "-999999999999-999999999999-999999999999-999999999999",
             "999999999999-" + str(int(ids[1]) + 2000) + "-999999999999-999999999999-999999999999",
             "999999999999-999999999999-" + str(int(ids[2]) + 2000) + "-999999999999-999999999999",
             "999999999999-999999999999-999999999999-" + str(int(ids[3]) + 2000) + "-999999999999",
