@@ -10,10 +10,10 @@ logger = logging.getLogger(__name__)
 
 class TestFilter:
 	def checkCondition(self, item):
-		return item.get('name') == 'Belly of the Beast' and item.get('price') > 500
+		return item.get('name') == 'Belly of the Beast' and int(item.get('price')) > 500
 
 	def isWorthBuying(self, item):
-		if item.get('name') == 'Belly of the Beast' and item.get('price') > 500:
+		if item.get('name') == 'Belly of the Beast' and int(item.get('price')) > 500:
 			return True
 		else:
 			return False
