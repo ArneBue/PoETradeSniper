@@ -3,11 +3,13 @@ import requests
 import time
 import json
 import traceback
-
+import threading
+import sys
 from config import config
 from Helper import itemhelper
 
 logger = logging.getLogger(__name__)
+
 
 class PoEAPI:
 
@@ -42,7 +44,9 @@ class PoEAPI:
 		logger.info("New Change ID: " + self.changeID)
 
 		try:
-			self.parseItems(data.get('stashes'))
+			t1 = threading.Thread(target=self.parseItems, args=[data.get('stashes')])
+			t1.start()
+			t1.join()
 		except Exception as e:
 			print(data)
 			logger.error(e)
@@ -72,11 +76,13 @@ class PoEAPI:
 			for itemIterator in items:
 				if itemIterator.get('league') == config.get('Config', 'league'):
 					item = itemhelper.normalizeItem(itemIterator, stashName, accountName, lastCharacterName)
+					#logger.info('Thread ' + str(self.threadID) + ' called filter' + item.get('name'))
 					self.filter(item)                    
 
 				
 
 	def filter(self, item):
+		#logger.info('Thread ' + str(self.threadID) + ' Filter' + item.get('name'))
 		if item.get('id') in self.itemids:
 			return False
 
@@ -85,6 +91,7 @@ class PoEAPI:
 				listedPrice = filter.isWorthBuying(item)
 				if(listedPrice):
 					self.itemids.append(item.get('id'))
+					logger.info('Thread ' + str(self.threadID) + ' found an item')
 					filter.sendMessage(item, listedPrice)
 
 	def addFilter(self, filter):

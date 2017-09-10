@@ -18,8 +18,7 @@ class ThreadHandlerAPI:
         for i in range(0, 5):
             api = PoEAPI(i, changeIDs[i])
 
-            for filter in filters:
-                api.addFilter(filter)
+            api.filters = filters
 
             self.classes.append(api)
 

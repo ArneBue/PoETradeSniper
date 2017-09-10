@@ -10,27 +10,16 @@ logger = logging.getLogger(__name__)
 
 class TestFilter:
 	def checkCondition(self, item):
-		if 'Yoshi' in item.get('lastCharacterName'):
-			return True
-		else:
-			return False
+		return item.get('name') == 'Belly of the Beast' and item.get('price') > 500
 
 	def isWorthBuying(self, item):
-		if 'Yoshi' in item.get('lastCharacterName'):
+		if item.get('name') == 'Belly of the Beast' and item.get('price') > 500:
 			return True
 		else:
 			return False
 
-	def evaluate(self, priceNinja, priceItem):
-		perc_decrease = ((priceNinja - priceItem) / priceNinja) * 100
-
-		if perc_decrease >= 40 and priceNinja - priceItem > 2:
-			return 1
-		
-		return False
-
 	def sendMessage(self, item, price):
-		msg = message.createMessage(item, price)
+		msg = "Found: " + item.get('name') + " from " + item.get('lastCharacterName')
 		discord.send(msg, config.get('Discord', 'Webhook'))
 		
 
