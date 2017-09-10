@@ -29,8 +29,8 @@ class PoEAPI:
 
 			logging.info("Thread " + str(self.threadID) + " took: " + str(end))
 
-			if((end) < 1.0):
-				time.sleep(1.0 - (end))
+			if((end) < 4.0):
+				time.sleep(4.0 - (end))
 
 	def request(self):
 		tradeURL = config.get("URL", "TradeApi") + self.changeID
