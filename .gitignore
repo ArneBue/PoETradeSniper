@@ -102,7 +102,7 @@ venv.bak/
 .mypy_cache/
 
 #config
-config.py
+config.ini
 
 #vscode
 .vscode/
