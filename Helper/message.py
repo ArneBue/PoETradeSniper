@@ -9,7 +9,7 @@ def createMessage(item, price):
 	return msg
 
 def createJSONMessage(item, price):
-	item['price'] = price
+	item['ninjaprice'] = price
 	return str(item)
 
 def createModList(mods):
