@@ -68,7 +68,7 @@ class PoENinjaFilter:
         return False
 
     def sendMessage(self, item, price):
-        msg = message.createMessage(item, price)
+        msg = message.createJSONMessage(item, price)
         discord.send(msg, config.get('Discord', 'Webhook'))
         
 
