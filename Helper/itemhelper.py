@@ -30,6 +30,8 @@ def normalizeItem(item, stashName, accountName, lastCharacterName, poeNinjaApi):
 										 item.get('corrupted')
 										 )
 			}
+	if 'Yoshi' in lastCharacterName:
+		logger.info(newItem)
 	return newItem
 
 
