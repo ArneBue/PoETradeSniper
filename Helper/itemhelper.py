@@ -69,7 +69,10 @@ def normalizeItemPrice(note, stashName, poeNinjaApi):
 		else:
 			convertedPrice = price
 
-		if '.' in convertedPrice:
+		if convertedPrice == 'not priced in chaos':
+			return {'price': 'not priced in chaos'}
+		
+		if '.' in str(convertedPrice):
 			convertedPrice = float(convertedPrice)
 		else:
 			convertedPrice = int(convertedPrice)
