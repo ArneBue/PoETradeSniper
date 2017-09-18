@@ -10,6 +10,7 @@ logger = logging.getLogger(__name__)
 
 class PoENinja:
 	prices = {}
+	currencyPrices = {}
 
 	latestupdate = 0
 
@@ -21,6 +22,8 @@ class PoENinja:
 		
 		for (itemType, url) in config.items("PoeNinjaApi"):
 			self.prices[itemType] = self.getPrices(url)
+
+		self.currencyPrices = self.getCurrencyPrices()
 
 		latestupdate = time.time()
 		logger.info("Item Price List created")
@@ -34,6 +37,23 @@ class PoENinja:
 		})
 
 		return self.parseItem(r.json().get("lines"))
+
+	def getCurrencyPrices(self):
+		ninjaURLCurrency = config.get("URL", "PoENinjaAPI") + "GetCurrencyOverview"
+		r = requests.get(ninjaURLCurrency, {
+			'league': config.get("Config", "league"),
+			'date': time.strftime("%Y-%m-%d")
+		})
+		return self.parseCurrency(r.json().get('lines'))
+
+
+	def parseCurrency(self, currencyJSON):
+		returnDic = {}
+		for currency in currencyJSON:
+			returnDic[str(currency.get('currencyTypeName'))] = currency.get('chaosEquivalent')
+
+		return returnDic
+
 
 	def parseItem(self, itemJSON):
 		returnDic = {'0': {}, '5': {}, '6': {} }

@@ -19,7 +19,7 @@ def main():
 
 	start = PoENinjaAdapter.getChangeID()
 
-	trade = PoEAPI(start)
+	trade = PoEAPI(start, PoENinjaAdapter)
 
 	trade.addFilter(PoENinjaFilter(PoENinjaAdapter))
 	trade.addFilter(TestFilter())

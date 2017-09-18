@@ -1,14 +1,17 @@
 import sys
 import re
 import ast
+import logging
 
-def normalizeItem(item, stashName, accountName, lastCharacterName):
+logger = logging.getLogger(__name__)
+
+def normalizeItem(item, stashName, accountName, lastCharacterName, poeNinjaApi):
 	newItem = {'name': normalizeItemName(item.get('name'), item.get('typeLine')),
 			   'accountName': accountName,
 			   'lastCharacterName': lastCharacterName,
 			   'itemType': item.get('frameType'),
 			   'note': item.get('note', ''),
-			   'price': normalizeItemPrice(item.get('note', ""), stashName), 
+			   'price': normalizeItemPrice(item.get('note', ""), stashName, poeNinjaApi), 
 			   'xLoc': item.get('x'),
 			   'yLoc': item.get('y'),
 			   'Links': maxLinks(item.get('sockets')),
@@ -32,7 +35,7 @@ def normalizeItemName(name, typeLine):
 	else: 
 		return re.sub(r'<<.*>>', '', name)
 
-def normalizeItemPrice(note, stashName):
+def normalizeItemPrice(note, stashName, poeNinjaApi):
 	if note:
 		price = note
 	else:
@@ -54,7 +57,7 @@ def normalizeItemPrice(note, stashName):
 		priceFinal = price
 
 		if unit != "chaos":
-			return convertToChaos(price, unit)
+			return convertToChaos(price, unit, poeNinjaApi)
 
 		if '.' in priceFinal:
 			priceFinal = float(priceFinal)
@@ -66,8 +69,12 @@ def normalizeItemPrice(note, stashName):
 	return priceFinal
 
 
-def convertToChaos(price, unit):
-	return 'not priced in chaos'
+def convertToChaos(price, unit, poeNinjaApi):
+	
+	if unit == 'exa':
+		return float(price) * float(poeNinjaApi.currencyPrices['Exalted Orb'])
+	else:
+		return 'not priced in chaos'
 
 
 def normalizeItemMods(enchantMods, implicitMods, explicitMods, craftedMods, corrupted):
