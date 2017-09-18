@@ -72,7 +72,9 @@ def normalizeItemPrice(note, stashName, poeNinjaApi):
 			convertedPrice = float(convertedPrice)
 		else:
 			convertedPrice = int(convertedPrice)
-	except:
+	except Exception as e:
+		logger.error(e)
+		traceback.print_exc()
 		return {'price': 'unpriced'}
 
 	return {'price': convertedPrice, 'unit' : unit, 'origPrice': price}
