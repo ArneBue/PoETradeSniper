@@ -48,7 +48,7 @@ def normalizeItemPrice(note, stashName, poeNinjaApi):
 		price = stashName
 
 	if not ('~b/o' in price or '~price' in price):
-		return {price: 'unpriced'}
+		return {'price': 'unpriced'}
 
 	price = price.replace("~b/o", "")
 	price = price.replace("~price", "")
@@ -67,7 +67,7 @@ def normalizeItemPrice(note, stashName, poeNinjaApi):
 		else:
 			convertedPrice = price
 
-		if '.' in convertedPrice:
+		if isinstance(convertedPrice, basestring) and '.' in convertedPrice:
 			convertedPrice = float(convertedPrice)
 		else:
 			convertedPrice = int(convertedPrice)
