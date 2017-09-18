@@ -69,7 +69,7 @@ def normalizeItemPrice(note, stashName, poeNinjaApi):
 		else:
 			convertedPrice = price
 
-		if isinstance(convertedPrice, basestring) and '.' in convertedPrice:
+		if not isinstance(convertedPrice, int) and not isinstance(convertedPrice, float) and '.' in convertedPrice:
 			convertedPrice = float(convertedPrice)
 		else:
 			convertedPrice = int(convertedPrice)
