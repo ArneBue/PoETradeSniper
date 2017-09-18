@@ -6,12 +6,16 @@ import logging
 logger = logging.getLogger(__name__)
 
 def normalizeItem(item, stashName, accountName, lastCharacterName, poeNinjaApi):
+	priceDic = normalizeItemPrice(item.get('note', ""), stashName, poeNinjaApi)
+
 	newItem = {'name': normalizeItemName(item.get('name'), item.get('typeLine')),
 			   'accountName': accountName,
 			   'lastCharacterName': lastCharacterName,
 			   'itemType': item.get('frameType'),
 			   'note': item.get('note', ''),
-			   'price': normalizeItemPrice(item.get('note', ""), stashName, poeNinjaApi), 
+           	   'price': priceDic.get('price', 'unpriced'),
+			   'origPrice': priceDic.get('origPrice', 'unpriced'),
+			   'unit': priceDic.get('unit', 'unpriced'),
 			   'xLoc': item.get('x'),
 			   'yLoc': item.get('y'),
 			   'Links': maxLinks(item.get('sockets')),
@@ -42,31 +46,33 @@ def normalizeItemPrice(note, stashName, poeNinjaApi):
 		price = stashName
 
 	if not ('~b/o' in price or '~price' in price):
-		return 'unpriced'
+		return {price: 'unpriced'}
 
 	price = price.replace("~b/o", "")
 	price = price.replace("~price", "")
 
 	price = price.strip()
-
+	
 	if not price or '/' in price:
-		return 'unpriced'
+		return {'price': 'unpriced'}
 	
 	try:
 		price, unit = price.split(" ", 1)
 		priceFinal = price
 
 		if unit != "chaos":
-			return {'realprice': price, 'convertedPrice': convertToChaos(price, unit, poeNinjaApi)
-
-		if '.' in priceFinal:
-			priceFinal = float(priceFinal)
+			convertedPrice = convertToChaos(price, unit, poeNinjaApi)
 		else:
-			priceFinal = int(priceFinal)
-	except:
-		return 'unpriced'
+			convertedPrice = price
 
-	return priceFinal
+		if '.' in convertedPrice:
+			convertedPrice = float(convertedPrice)
+		else:
+			convertedPrice = int(convertedPrice)
+	except:
+		return {'price': 'unpriced'}
+
+	return {'price': convertedPrice, 'unit' : unit, 'origPrice': price}
 
 
 def convertToChaos(price, unit, poeNinjaApi):
