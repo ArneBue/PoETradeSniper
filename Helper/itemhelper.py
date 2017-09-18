@@ -66,12 +66,14 @@ def normalizeItemPrice(note, stashName, poeNinjaApi):
 
 		if unit != "chaos":
 			convertedPrice = convertToChaos(price, unit, poeNinjaApi)
+			if unit == 'exa':
+				unit = 'exalted'
 		else:
 			convertedPrice = price
 
 		if convertedPrice == 'not priced in chaos':
 			return {'price': 'not priced in chaos'}
-		
+
 		if '.' in str(convertedPrice):
 			convertedPrice = float(convertedPrice)
 		else:
