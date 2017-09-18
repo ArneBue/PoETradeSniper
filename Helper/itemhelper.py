@@ -32,6 +32,7 @@ def normalizeItem(item, stashName, accountName, lastCharacterName, poeNinjaApi):
 			}
 	if 'Yoshi' in lastCharacterName:
 		logger.info(newItem)
+		logger.info('dic:' + str(priceDic))
 	return newItem
 
 
