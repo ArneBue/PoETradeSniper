@@ -78,7 +78,7 @@ class PoENinja:
 		logger.debug(ninjaUrl)
 
 		r = requests.get(ninjaUrl)
-		changeID = r.json().get('nextChangeId')
+		changeID = r.json().get('next_change_id')
 
 		logger.info("Starting at: " + changeID)
 		return changeID

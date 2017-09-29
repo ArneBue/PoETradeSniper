@@ -25,7 +25,6 @@ class PoEAPI:
 		logger.debug(tradeURL)
 
 		data = self.doRequest(tradeURL)
-
 		self.changeID = data.get('next_change_id', self.changeID)
 
 		logger.info("New Change ID: " + self.changeID)
