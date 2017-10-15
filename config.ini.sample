@@ -17,4 +17,5 @@ UniqAccessory: GetUniqueAccessoryOverview
 DivCard: GetDivinationCardsOverview
 
 [Discord]
-Webhook: WebHook URL
+Webhook: https://discordapp.com/api/webhooks/347402594945335297/d6SCkOWWSOfyd3L3SJya6h_5qRAUX8KbWWHR-yb61iY8_o806aUybgcu3DzNP783mATx
+
